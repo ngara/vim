@@ -1,9 +1,9 @@
-(http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/)[http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/]
-
-Synchronizing plugins with git submodules and pathogen #27
-----------------------------------------------------------
-
+Source: http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/
 Oct 12, 2010
+
+
+Synchronizing plugins with git submodules and pathogen
+------------------------------------------------------
 
 If you use Vim on muliple machines, it can be difficult to keep your configuration files synchronized across them. One solution is to put your dotfiles under version control. In this episode, I demonstrate how to keep your vimrc and plugins synchronized using git submodules and the pathogen plugin.
 
