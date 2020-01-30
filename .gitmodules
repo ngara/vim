@@ -1,3 +1,9 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic.git
+[submodule "bundle/oceanic-next"]
+	path = bundle/oceanic-next
+	url = https://github.com/mhartington/oceanic-next.git
+[submodule "bundle/black"]
+	path = bundle/black
+	url = https://github.com/psf/black.git
