@@ -7,3 +7,9 @@
 [submodule "bundle/black"]
 	path = bundle/black
 	url = https://github.com/psf/black.git
+[submodule "bundle/puppet"]
+	path = bundle/puppet
+	url = https://github.com/rodjek/vim-puppet.git
+[submodule "bundle/jenkinsfile-vim-syntax"]
+	path = bundle/jenkinsfile-vim-syntax
+	url = https://github.com/martinda/Jenkinsfile-vim-syntax.git
