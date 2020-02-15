@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/Users/ngarabed/nate/git/ngarabedian/healthscripts/bin'
+let g:netrw_dirhist_5='/Users/ngarabed/nate/git/health/health-cli/sweFlowPlugin'
+let g:netrw_dirhist_4='/Users/ngarabed/nate/git/ngarabedian/ng-starter-python/src/hello'
+let g:netrw_dirhist_3='/Users/ngarabed/nate/git/health/health-cli/src/health_plugin/pr'
+let g:netrw_dirhist_2='/Users/ngarabed/nate/git/isd-dev/isd-starter-python/src'
+let g:netrw_dirhist_1='/Users/ngarabed/nate/git/health/health-cli/sweHealthPlugin/health_plugin'

@@ -29,7 +29,7 @@ set background=dark
 
 " settings requiring the latest vim
 if version >= 703
-  " set colorcolumn=80    " highlight the 80th column
+  set colorcolumn=80    " highlight the 80th column
   " characters to use for 'specical' characters and non-printables
   " set listchars=nbsp:¶,eol:¬,tab:>-,extends:»,precedes:«,trail:•
   " map <space> to disable highlight easily
@@ -56,7 +56,6 @@ set cmdheight=1
 
 " Highlight Characters past 79th position "
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%81v.\+/
 " match OverLength /\%81v.\+/
 
 " Highlight Non-Ascii Characters "
