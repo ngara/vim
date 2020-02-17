@@ -76,6 +76,7 @@ au BufRead,BufNewFile *.json setf javascript
 au BufRead,BufNewFile *.js setf javascript
 au BufRead,BufNewFile *.json setf javascript
 au BufRead,BufNewFile *.go set filetype=go
+au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
 
 au FileType html set indentexpr=
 
