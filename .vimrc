@@ -117,8 +117,9 @@ let g:syntastic_auto_loc_list=1
 "let g:syntastic_ruby_checkers = ["puppetlint"]
 "let g:vim_markdown_folding_disabled=1
 "let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=["flake8"]
+let g:syntastic_python_checkers=["pylint", "flake8"]
 let g:syntastic_python_flake8_args="--ignore=E501,E402,E722,W503"
+let g:syntastic_python_pylint_args="-d C0111,C0103"
 let g:syntastic_eruby_ruby_quiet_messages =
   \ {'regex': 'possibly useless use of a variable in void context'}
 
