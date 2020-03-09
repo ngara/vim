@@ -105,6 +105,9 @@ au FileType go set softtabstop=2
 " Perl Section "
 " au FileType perl set noexpandtab
 
+" Bash variables
+let g:is_bash=1
+
 " Black variables
 let g:black_linelength=79
 " autocmd BufWritePre *.py execute ':Black'
@@ -118,7 +121,7 @@ let g:syntastic_auto_loc_list=1
 "let g:syntastic_ruby_checkers = ["puppetlint"]
 "let g:vim_markdown_folding_disabled=1
 "let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=["pylint", "flake8"]
+let g:syntastic_python_checkers=["flake8"]  " pylint
 let g:syntastic_python_flake8_args="--ignore=E501,E402,E722,W503"
 let g:syntastic_python_pylint_args="-d C0111,C0103"
 let g:syntastic_eruby_ruby_quiet_messages =
@@ -131,3 +134,8 @@ let g:syntastic_c_include_dirs = ['lib']
 let g:syntastic_cpp_include_dirs = ['lib']
 
 let g:go_version_warning = 0
+
+" Pre-Saved Macros
+" @p to convert python2 print to python3 (watch out for multiline prints tho)
+let @p = '#/print ^Mlllllr(A)^[<80><fd>a'
+
