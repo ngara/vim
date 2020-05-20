@@ -11,7 +11,7 @@ set tabstop=4
 set softtabstop=4
 set smarttab
 set autoindent
-set smartindent
+set nosmartindent
 set copyindent
 set ruler
 set formatoptions=croql
