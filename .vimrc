@@ -110,7 +110,7 @@ let g:is_bash=1
 
 " Black variables
 let g:black_linelength=79
-" autocmd BufWritePre *.py execute ':Black'
+autocmd BufWritePre *.py execute ':Black'
 nnoremap <F9> :Black<CR>
 
 " Syntastic Variables
