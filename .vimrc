@@ -76,7 +76,10 @@ au BufRead,BufNewFile *.json setf javascript
 au BufRead,BufNewFile *.js setf javascript
 au BufRead,BufNewFile *.json setf javascript
 au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.asm set filetype=nasm
 au BufNewFile,BufRead Jenkinsfile* set filetype=groovy
+au BufRead,BufNewFile *.asm setf asm
+
 
 au FileType html set indentexpr=
 
@@ -102,6 +105,8 @@ au FileType go set shiftwidth=2
 au FileType go set tabstop=2
 au FileType go set softtabstop=2
 
+au FileType asm setlocal ts=8 sts=8 sw=8 noexpandtab
+
 " Perl Section "
 " au FileType perl set noexpandtab
 
@@ -110,7 +115,7 @@ let g:is_bash=1
 
 " Black variables
 let g:black_linelength=79
-autocmd BufWritePre *.py execute ':Black'
+" autocmd BufWritePre *.py execute ':Black'
 nnoremap <F9> :Black<CR>
 
 " Syntastic Variables
