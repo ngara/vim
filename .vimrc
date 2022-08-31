@@ -19,6 +19,7 @@ set backspace=indent,eol,start
 set hlsearch
 set showmatch                            " show matching brackets
 set matchtime=5                          " seconds to blink matching brackets
+set re=0
 
 " Vim 8 -- set terminal to 256 colors
 set t_Co=256
