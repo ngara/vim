@@ -1,4 +1,30 @@
-execute pathogen#infect()
+" ----------------------------------------------------------------------------
+" Plugins (vim-plug). Run :PlugInstall after adding a plugin, :PlugUpdate to
+" update, :PlugClean to remove ones no longer listed here. Bootstrap: if
+" plug.vim is missing, clone it and install everything on first launch.
+" ----------------------------------------------------------------------------
+" This vimrc is symlinked to ~/.vimrc but the repo lives at ~/.vim, so anchor
+" plug's paths to ~/.vim rather than to <sfile> (which follows the symlink).
+let s:vim_dir  = expand('~/.vim')
+let s:plug_path = s:vim_dir . '/autoload/plug.vim'
+if empty(glob(s:plug_path))
+  silent execute '!git clone --depth 1 https://github.com/junegunn/vim-plug.git '
+    \ . shellescape(s:vim_dir . '/vim-plug-tmp')
+  silent execute '!cp ' . shellescape(s:vim_dir . '/vim-plug-tmp/plug.vim')
+    \ . ' ' . shellescape(s:plug_path)
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin(s:vim_dir . '/plugged')
+Plug 'vim-syntastic/syntastic'
+Plug 'mhartington/oceanic-next'
+Plug 'psf/black', { 'branch': 'stable' }
+Plug 'rodjek/vim-puppet'
+Plug 'martinda/Jenkinsfile-vim-syntax'
+Plug 'godlygeek/tabular'
+Plug 'bronson/vim-trailing-whitespace'
+call plug#end()
+
 syntax on
 filetype plugin indent on
 set nocompatible

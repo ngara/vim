@@ -1,131 +1,55 @@
-Source: http://vimcasts.org/episodes/synchronizing-plugins-with-git-submodules-and-pathogen/
-Oct 12, 2010
+# ngara's vim configuration
 
+My Vim setup, managed with [vim-plug](https://github.com/junegunn/vim-plug).
+The repo *is* `~/.vim`, and `~/.vimrc` is a symlink to the `.vimrc` in here.
 
-Synchronizing plugins with git submodules and pathogen
-------------------------------------------------------
+## Layout
 
-If you use Vim on muliple machines, it can be difficult to keep your configuration files synchronized across them. One solution is to put your dotfiles under version control. In this episode, I demonstrate how to keep your vimrc and plugins synchronized using git submodules and the pathogen plugin.
+- `.vimrc` — all settings **and** the plugin list (between `plug#begin()` /
+  `plug#end()`). This is the single source of truth.
+- `autoload/plug.vim` — vim-plug itself, vendored so a fresh clone works
+  offline / behind a proxy without an extra download step.
+- `plugged/` — where vim-plug installs plugins. Git-ignored; never committed.
 
+## Fresh machine setup
 
-Keep your dotfiles in git
--------------------------
-
-The following instructions assume that your home directory contains a .vimrc file, a .vim directory and a .gvimrc file (optional).
-
-1. Move the .vimrc and .gvimrc files into the .vim directory:
-```
-mv .vimrc ~/.vim/vimrc
-mv .gvimrc ~/.vim/gvimrc
-```
-
-2.  Create symbolic links so that ~/.vimrc points to the ~/.vim/vimrc file:
-```
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/gvimrc ~/.gvimrc
+```sh
+git clone https://github.com/ngara/vim.git ~/.vim
+ln -s ~/.vim/.vimrc ~/.vimrc
+vim +PlugInstall +qall      # installs every plugin listed in .vimrc
 ```
 
-3. Change to the .vim directory, and initialize it as a git repository:
-```
-cd ~/.vim
-git init
-```
+`.vimrc` also self-bootstraps: if `autoload/plug.vim` is ever missing it
+clones vim-plug and runs `:PlugInstall` on first launch.
 
-4. Create a README file, and paste installation instructions into it (see example README).Add all files, and make an initial commit:
-```
-git add .
-git commit -m "Initial commit"
-```
+## Managing plugins
 
-I suggest publishing your dotvim files to github: it’s really easy to set up an account, and they host open source projects for free. In the video, I demonstrate how to publish a git repository to github.
+Everything is driven from the `Plug '...'` lines in `.vimrc`:
 
+- Add a plugin: add a `Plug 'owner/repo'` line, save, then `:PlugInstall`
+- Update all plugins: `:PlugUpdate`
+- Remove a plugin: delete its `Plug` line, then `:PlugClean`
+- Update vim-plug itself: `:PlugUpgrade`
+- Check status: `:PlugStatus`
 
-Keep your plugins in git
-------------------------
+No git submodules, no shell scripts to run — that's the whole point of the
+move off pathogen.
 
-The traditional method for installing Vim plugins is to copy each script that is distributed with the plugin into the corresponding .vim subdirectory. For example, if you wanted to install Fugitive.vim (a git wrapper for Vim), you would copy the documentation file into .vim/doc, and copy the plugin file into .vim/plugin. You could then check these in to your git repository, and they could be syncronised across machines as easily as the rest of your configuration files. But you lose something by doing this. The Fugitive plugin itself is kept under version control with git. It would be much better if you could keep it that way.
+## Currently installed
 
+| Plugin | Purpose |
+|--------|---------|
+| [syntastic](https://github.com/vim-syntastic/syntastic) | syntax checking / linting |
+| [oceanic-next](https://github.com/mhartington/oceanic-next) | color scheme (`colorscheme OceanicNext`) |
+| [black](https://github.com/psf/black) (`stable` branch) | Python formatter (`:Black`, mapped to `<F9>`) |
+| [vim-puppet](https://github.com/rodjek/vim-puppet) | Puppet syntax / indent |
+| [Jenkinsfile-vim-syntax](https://github.com/martinda/Jenkinsfile-vim-syntax) | Jenkinsfile syntax |
+| [tabular](https://github.com/godlygeek/tabular) | align text into columns |
+| [vim-trailing-whitespace](https://github.com/bronson/vim-trailing-whitespace) | highlight / strip trailing whitespace |
 
-Pathogen.vim
-------------
+## History
 
-The pathogen plugin makes it possible to cleanly install plugins as a bundle. Rather than having to place all of your plugins side by side in the same directory, you can keep all of the files for each individual plugin together in one directory. This makes installation more straightforward, and also simplifies the tasks of upgrading and even removing a plugin if you decide you no longer need it.
-
-To install Pathogen, download the script and place it in your .vim/autoload directory (if the directory doesn’t exist, you’ll have to create it).There are a couple of lines that you should add to your .vimrc file to activate pathogen.
-```
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
-```
-
-It is essential that these lines are called before enabling filetype detection, so I would recommend putting them at the top of your vimrc file. 
-
-
-Install plugins as submodules
------------------------------
-
-With pathogen installed, it’s now possible to keep the files for each plugin together, which means that every plugin can be kept in its own git repository. The best way to do this is to use git submodules, which are designed especially for the purpose of keeping git repositories within a git repository.
-
-To install the fugitive plugin as a git submodule, take the following steps:
-```
-cd ~/.vim
-mkdir ~/.vim/bundle
-git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
-git add .
-git commit -m "Install Fugitive.vim bundle as a submodule."
-```
-
-
-Installing your Vim environment on another machine
---------------------------------------------------
-
-Once your vim configuration is under version control, it’s quite straightforward to import your settings to any machine that has git installed. If you followed the instructions above to put your vimrc and plugins in a dotvim directory, then you can follow these steps to synchronise them to another machine:
-```
-cd ~
-git clone http://github.com/username/dotvim.git ~/.vim
-ln -s ~/.vim/vimrc ~/.vimrc
-ln -s ~/.vim/gvimrc ~/.gvimrc
-cd ~/.vim
-git submodule init
-git submodule update
-```
-
-As Marcin Kulik points out in the comments below, the last two git commands can be rolled in to one:
-```
-git submodule update --init.
-```
-
-
-Upgrading a plugin bundle
--------------------------
-
-At some point in the future, the fugitive plugin might be updated. To fetch the latest changes, go into the fugitive repository, and pull the latest version:
-```
-cd ~/.vim/bundle/fugitive
-git pull origin master
-```
-
-
-Upgrading all bundled plugins
------------------------------
-
-You can use the foreach command to execute any shell script in from the root of all submodule directories. To update to the latest version of each plugin bundle, run the following:
-```
-git submodule foreach git pull origin master
-```
-
-
-Further reading
----------------
-
-github - free git hosting for open source projects
-GitCasts screencast on git submodules
-Pathogen.vim - allows Vim plugins to be installed as bundles
-Fugitive.vim - a git wrapper for Vim
-git-submodule(1) Manual Page
-
-
-Updates
--------
-
-Matt noted in the comments that when you follow this method, generating helptags dirties the submodule’s git repository tree. Several other people chimed in with suggestions on how to fix this. Nils Haldenwang has written a blog post describing a simple fix, which just involves adding the line ignore = dirty to the .gitmodules file for each submodule that reports a dirty tree when you run git status. Go and read Nils’s blog post, which goes into a bit more detail.
-
+This config used to use [pathogen](https://github.com/tpope/vim-pathogen)
+with each plugin pinned as a git submodule under `bundle/`, updated via a
+`git submodule foreach git pull` script. It was migrated to vim-plug so the
+plugin list lives in `.vimrc` and updates are a single `:PlugUpdate`.

@@ -1,2 +1,6 @@
 .netrwhist
 black
+
+# vim-plug: installed plugins + bootstrap clone (managed by :PlugInstall)
+plugged/
+vim-plug-tmp/
