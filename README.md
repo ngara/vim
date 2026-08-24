@@ -35,6 +35,9 @@ Everything is driven from the `Plug '...'` lines in `.vimrc`:
 No git submodules, no shell scripts to run — that's the whole point of the
 move off pathogen.
 
+A few plugins shell out to external command-line tools (linters, formatters).
+Those are all optional and documented in [DEPENDENCIES.md](DEPENDENCIES.md).
+
 ## Currently installed
 
 | Plugin | Purpose |
